@@ -1,5 +1,6 @@
 package com.example.backend1assignment.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -14,8 +15,12 @@ public class Customer {
     @Id
     @GeneratedValue
     private Long id;
-    private String name, address, email, password;
+    private String name;
+    private String address;
+    private String email;
+    private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<BuyOrders> orders;
 
