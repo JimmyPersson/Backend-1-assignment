@@ -1,6 +1,7 @@
 package com.example.backend1assignment.Controllers;
 
 import com.example.backend1assignment.Models.Customer;
+import com.example.backend1assignment.Models.DTO.CustomerDTO;
 import com.example.backend1assignment.Repos.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,15 +25,17 @@ public class CustomerController {
         return customerRepository.findById(id).get();
     }
 
+
     @PostMapping("/add")
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer){
-        customer.setName(customer.getName());
-        customer.setAddress(customer.getAddress());
-        customer.setEmail(customer.getEmail());
-        customer.setPassword(customer.getPassword());
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerDTO customerDTO){
+        Customer customer = new Customer();
+        customer.setName(customerDTO.getName());
+        customer.setAddress(customerDTO.getAddress());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setPassword(customerDTO.getPassword());
 
         customerRepository.save(customer);
 
-        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+        return new ResponseEntity<>(customerDTO, HttpStatus.CREATED);
     }
 }
