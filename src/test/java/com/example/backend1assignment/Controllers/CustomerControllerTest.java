@@ -66,7 +66,7 @@ class CustomerControllerTest {
 
     @Test
     void addCustomer() throws Exception {
-        JSONObject json = new JSONObject();
+        /*JSONObject json = new JSONObject();
         json.put("name", "john");
         json.put("address", "address");
         json.put("email", "email");
@@ -76,6 +76,12 @@ class CustomerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
                 .content(json.toString()))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated());*/
+
+        String requestBody = "{\"name\":\"Anna\",\"address\":\"Anna address\",\"email\":\"anna@email.com\",\"password\":\"secret1\"}";
+        mvc.perform(MockMvcRequestBuilders.post("/customers/add")
+                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody)).andExpect(status().isCreated());
+        
     }
 }
