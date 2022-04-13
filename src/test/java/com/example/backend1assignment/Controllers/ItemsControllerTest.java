@@ -1,6 +1,8 @@
 package com.example.backend1assignment.Controllers;
 
 import com.example.backend1assignment.Models.Items;
+import com.example.backend1assignment.Repos.BuyOrdersRepository;
+import com.example.backend1assignment.Repos.CustomerRepository;
 import com.example.backend1assignment.Repos.ItemsRepository;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +35,12 @@ class ItemsControllerTest {
 
     @MockBean
     private ItemsRepository mockRepository;
+
+    @MockBean
+    private BuyOrdersRepository BOMockRepository;
+
+    @MockBean
+    private CustomerRepository customerMockRepository;
 
     @BeforeEach
     public void init() {
@@ -74,8 +82,20 @@ class ItemsControllerTest {
 
     @Test
     void newOrder() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/items/buy?customerId=2&itemName=Toothbrush&productNumber=HY3200")
-                        .accept(MediaType.APPLICATION_JSON))
+        /*String requestBody = "{\"customerId\":1,\"itemId\":\"3\"}";
+        mvc.perform(MockMvcRequestBuilders.get("/items/buy")
+                        .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content().json("{\"customerId\":1,\"itemId\":\"3\"}"));*/
+
+        JSONObject json = new JSONObject();
+        json.put("customerId", 1L);
+        json.put("itemId", 3L);
+        mvc.perform(MockMvcRequestBuilders.get("/items/buy")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("utf-8")
+                .content(json.toString()))
                 .andExpect(status().isCreated());
     }
 }

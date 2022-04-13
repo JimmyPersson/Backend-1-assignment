@@ -20,7 +20,7 @@ import java.util.List;
 public class ItemsController {
 
     @Autowired
-    ItemsRepository itemsRepository;
+    private ItemsRepository itemsRepository;
 
     @Autowired
     private CustomerRepository customerRepository;
