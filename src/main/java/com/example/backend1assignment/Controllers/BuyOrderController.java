@@ -39,7 +39,7 @@ public class BuyOrderController {
         return customer.getOrders();
     }
 
-    @RequestMapping("/add")
+    /*@RequestMapping("/add")
     public ResponseEntity<?> makeNewOrder(@RequestParam Long customerId, @RequestParam String orderNumber, @RequestParam Long itemId){
         Customer customer = customerRepository.findById(customerId).get();
         Items item = itemsRepository.findById(itemId).get();
@@ -54,7 +54,7 @@ public class BuyOrderController {
         buyOrdersRepository.save(buyOrders);
 
         return new ResponseEntity<>(buyOrders, HttpStatus.CREATED);
-    }
+    }*/
 
 
 }

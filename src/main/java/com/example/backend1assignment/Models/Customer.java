@@ -34,4 +34,13 @@ public class Customer {
         this.password = password;
         this.orders = orders;
     }
+
+    //only used for test
+    public Customer(Long id, String name, String address, String email, String password){
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+    }
 }
