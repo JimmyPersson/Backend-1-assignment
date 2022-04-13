@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -75,7 +76,6 @@ class CustomerControllerTest {
         String requestBody = "{\"name\":\"Anna\",\"address\":\"Anna address\",\"email\":\"anna@email.com\",\"password\":\"secret1\"}";
         mvc.perform(MockMvcRequestBuilders.post("/customers/add")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody)).andExpect(status().isCreated());
-
+                .content(requestBody)).andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
     }
 }
