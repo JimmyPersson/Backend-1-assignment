@@ -67,10 +67,15 @@ class ItemsControllerTest {
         String requestBody = "{\"id\":5,\"name\":\"Candle\",\"productNumber\":\"HD01\"}";
         mvc.perform(MockMvcRequestBuilders.post("/items/add")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody)).andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
+                .content(requestBody))
+                .andExpect(status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    void newOrder() {
+    void newOrder() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/items/buy?customerId=2&itemName=Toothbrush&productNumber=HY3200")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
     }
 }
