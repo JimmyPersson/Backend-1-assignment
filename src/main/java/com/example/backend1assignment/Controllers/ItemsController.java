@@ -2,6 +2,7 @@ package com.example.backend1assignment.Controllers;
 
 import com.example.backend1assignment.Models.BuyOrders;
 import com.example.backend1assignment.Models.Customer;
+import com.example.backend1assignment.Models.DTO.BuyOrderDTO;
 import com.example.backend1assignment.Models.Items;
 import com.example.backend1assignment.Repos.BuyOrdersRepository;
 import com.example.backend1assignment.Repos.CustomerRepository;
@@ -46,7 +47,7 @@ public class ItemsController {
         return new ResponseEntity<>(item, HttpStatus.CREATED);
     }
 
-    @RequestMapping("/buy")
+    /*@RequestMapping("/buy")
     public ResponseEntity<?> newOrder(@RequestParam Long customerId, @RequestParam String itemName, @RequestParam String productNumber){
         Customer customer = customerRepository.findById(customerId).get();
         Items item = itemsRepository.findByNameAndProductNumber(itemName, productNumber);
@@ -62,6 +63,26 @@ public class ItemsController {
         buyOrdersRepository.save(buyOrders);
 
         return new ResponseEntity<>(buyOrders, HttpStatus.CREATED);
+    }*/
+
+    @RequestMapping("/buy")
+    public ResponseEntity<?> newOrder(@RequestBody BuyOrderDTO buyOrderDTO){
+        Customer customer = customerRepository.findById(buyOrderDTO.getCustomerId()).get();
+        Items item = itemsRepository.findById(buyOrderDTO.getItemId()).get();
+
+        List<Items> myOrder = new ArrayList<>();
+        myOrder.add(item);
+
+        BuyOrders buyOrders = new BuyOrders();
+        //buyOrders.setOrderNumber(orderNumber);
+        buyOrders.setCustomer(customer);
+        buyOrders.setItems(myOrder);
+
+        buyOrdersRepository.save(buyOrders);
+
+        return new ResponseEntity<>(buyOrders, HttpStatus.CREATED);
     }
+
+
 
 }
