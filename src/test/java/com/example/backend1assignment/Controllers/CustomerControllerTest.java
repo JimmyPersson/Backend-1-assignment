@@ -1,11 +1,8 @@
 package com.example.backend1assignment.Controllers;
 
-import com.example.backend1assignment.Models.BuyOrders;
 import com.example.backend1assignment.Models.Customer;
 import com.example.backend1assignment.Repos.CustomerRepository;
 import net.minidev.json.JSONObject;
-import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,6 +76,6 @@ class CustomerControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/customers/add")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody)).andExpect(status().isCreated());
-        
+
     }
 }
