@@ -3,6 +3,7 @@ package com.example.backend1assignment.Controllers;
 import com.example.backend1assignment.Models.BuyOrders;
 import com.example.backend1assignment.Models.Customer;
 import com.example.backend1assignment.Repos.CustomerRepository;
+import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -65,9 +66,16 @@ class CustomerControllerTest {
 
     @Test
     void addCustomer() throws Exception {
-        /*mvc.perform(MockMvcRequestBuilders.get("/customers/add?name=Test1&address=Theshire&email=email@test.se&password=shhhh")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Test1 is saved")));*/
+        JSONObject json = new JSONObject();
+        json.put("name", "john");
+        json.put("address", "address");
+        json.put("email", "email");
+        json.put("password", "pass");
+        mvc.perform(MockMvcRequestBuilders.post("/customers/add")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("utf-8")
+                .content(json.toString()))
+                .andExpect(status().isCreated());
     }
 }
