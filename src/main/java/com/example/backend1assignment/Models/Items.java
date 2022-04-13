@@ -22,4 +22,11 @@ public class Items {
         this.name = name;
         this.productNumber = productNumber;
     }
+
+    //only used for test
+    public Items(Long id, String name, String productNumber){
+        this.id = id;
+        this.name = name;
+        this.productNumber = productNumber;
+    }
 }
