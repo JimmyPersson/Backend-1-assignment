@@ -8,4 +8,5 @@ import lombok.Data;
 public class BuyOrderDTO {
     private Long customerId, itemId;
     private String orderNumber;
+
 }

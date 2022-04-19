@@ -1,17 +1,13 @@
 package com.example.backend1assignment.Controllers;
 
+import com.example.backend1assignment.Models.Customer;
 import com.example.backend1assignment.Models.DTO.BuyOrderDTO;
 import com.example.backend1assignment.Models.Items;
-import com.example.backend1assignment.Repos.BuyOrdersRepository;
 import com.example.backend1assignment.Repos.CustomerRepository;
 import com.example.backend1assignment.Repos.ItemsRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-import com.example.backend1assignment.Models.Customer;
-import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,9 +33,6 @@ class ItemsControllerTest {
 
     @MockBean
     private ItemsRepository mockRepository;
-
-    @MockBean
-    private BuyOrdersRepository BOMockRepository;
 
     @MockBean
     private CustomerRepository customerMockRepository;
@@ -88,7 +81,6 @@ class ItemsControllerTest {
 
     @Test
     void newOrder() throws Exception {
-
         BuyOrderDTO buyOrderDTO = new BuyOrderDTO(1L,2L,"1E");
         mvc.perform(MockMvcRequestBuilders.post("/items/buy")
                         .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)

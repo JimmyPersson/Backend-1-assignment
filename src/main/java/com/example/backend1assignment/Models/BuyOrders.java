@@ -24,6 +24,7 @@ public class BuyOrders {
     public BuyOrders() {
 
     }
+
     public BuyOrders(String orderNumber, List<Items> items, Customer customer) {
         this.orderNumber = orderNumber;
         this.customer = customer;

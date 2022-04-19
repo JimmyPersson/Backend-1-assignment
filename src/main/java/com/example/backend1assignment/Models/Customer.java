@@ -35,7 +35,6 @@ public class Customer {
         this.orders = orders;
     }
 
-    //only used for test
     public Customer(Long id, String name, String address, String email, String password){
         this.id = id;
         this.name = name;
