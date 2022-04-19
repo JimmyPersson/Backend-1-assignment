@@ -29,4 +29,11 @@ public class BuyOrders {
         this.customer = customer;
         this.items = items;
     }
+
+    public BuyOrders(Long id, String orderNumber, Customer customer, List<Items> items) {
+        this.id = id;
+        this.orderNumber = orderNumber;
+        this.customer = customer;
+        this.items = items;
+    }
 }

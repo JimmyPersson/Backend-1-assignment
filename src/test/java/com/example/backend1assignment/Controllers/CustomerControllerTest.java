@@ -2,7 +2,6 @@ package com.example.backend1assignment.Controllers;
 
 import com.example.backend1assignment.Models.Customer;
 import com.example.backend1assignment.Repos.CustomerRepository;
-import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ class CustomerControllerTest {
 
     @Test
     void getAllCustomers() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/customers/all").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/customers").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[{\"id\":1,\"name\":\"Anna\",\"address\":\"Anna address\",\"email\":\"anna@email.com\",\"password\":\"secret1\"}," +
                         "{\"id\":2,\"name\":\"Bob\",\"address\":\"Bobs address\",\"email\":\"bob@email.com\",\"password\":\"secret2\"},"+
@@ -53,7 +52,7 @@ class CustomerControllerTest {
 
     @Test
     void findCustomerById() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/customers/find/1")
+        mvc.perform(MockMvcRequestBuilders.get("/customers/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"id\":1,\"name\":\"Anna\",\"address\":\"Anna address\",\"email\":\"anna@email.com\",\"password\":\"secret1\"}"));
@@ -61,18 +60,6 @@ class CustomerControllerTest {
 
     @Test
     void addCustomer() throws Exception {
-        /*JSONObject json = new JSONObject();
-        json.put("name", "john");
-        json.put("address", "address");
-        json.put("email", "email");
-        json.put("password", "pass");
-        mvc.perform(MockMvcRequestBuilders.post("/customers/add")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("utf-8")
-                .content(json.toString()))
-                .andExpect(status().isCreated());*/
-
         String requestBody = "{\"name\":\"Anna\",\"address\":\"Anna address\",\"email\":\"anna@email.com\",\"password\":\"secret1\"}";
         mvc.perform(MockMvcRequestBuilders.post("/customers/add")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)

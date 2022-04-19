@@ -1,9 +1,11 @@
 package com.example.backend1assignment.Controllers;
 
+import com.example.backend1assignment.Models.DTO.BuyOrderDTO;
 import com.example.backend1assignment.Models.Items;
 import com.example.backend1assignment.Repos.BuyOrdersRepository;
 import com.example.backend1assignment.Repos.CustomerRepository;
 import com.example.backend1assignment.Repos.ItemsRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,6 +53,10 @@ class ItemsControllerTest {
 
         when(mockRepository.findById(2L)).thenReturn(Optional.of(i2));
         when(mockRepository.findAll()).thenReturn(Arrays.asList(i1, i2, i3));
+
+        Customer c1 = new Customer(1L, "Anna", "Anna address", "anna@email.com", "secret1");
+        when(customerMockRepository.findById(1L)).thenReturn(Optional.of(c1));
+
     }
 
     @Test
@@ -82,20 +88,19 @@ class ItemsControllerTest {
 
     @Test
     void newOrder() throws Exception {
-        /*String requestBody = "{\"customerId\":1,\"itemId\":\"3\"}";
-        mvc.perform(MockMvcRequestBuilders.get("/items/buy")
-                        .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(content().json("{\"customerId\":1,\"itemId\":\"3\"}"));*/
 
-        JSONObject json = new JSONObject();
-        json.put("customerId", 1L);
-        json.put("itemId", 3L);
-        mvc.perform(MockMvcRequestBuilders.get("/items/buy")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("utf-8")
-                .content(json.toString()))
-                .andExpect(status().isCreated());
+        BuyOrderDTO buyOrderDTO = new BuyOrderDTO(1L,2L,"1E");
+        mvc.perform(MockMvcRequestBuilders.post("/items/buy")
+                        .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(buyOrderDTO)))
+                        .andExpect(status().isCreated());
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

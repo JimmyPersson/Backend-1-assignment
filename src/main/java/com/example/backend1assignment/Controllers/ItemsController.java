@@ -47,25 +47,7 @@ public class ItemsController {
         return new ResponseEntity<>(item, HttpStatus.CREATED);
     }
 
-    /*@RequestMapping("/buy")
-    public ResponseEntity<?> newOrder(@RequestParam Long customerId, @RequestParam String itemName, @RequestParam String productNumber){
-        Customer customer = customerRepository.findById(customerId).get();
-        Items item = itemsRepository.findByNameAndProductNumber(itemName, productNumber);
-
-        List<Items> myOrder = new ArrayList<>();
-        myOrder.add(item);
-
-        BuyOrders buyOrders = new BuyOrders();
-        //buyOrders.setOrderNumber(orderNumber);
-        buyOrders.setCustomer(customer);
-        buyOrders.setItems(myOrder);
-
-        buyOrdersRepository.save(buyOrders);
-
-        return new ResponseEntity<>(buyOrders, HttpStatus.CREATED);
-    }*/
-
-    @RequestMapping("/buy")
+    @PostMapping("/buy")
     public ResponseEntity<?> newOrder(@RequestBody BuyOrderDTO buyOrderDTO){
         Customer customer = customerRepository.findById(buyOrderDTO.getCustomerId()).get();
         Items item = itemsRepository.findById(buyOrderDTO.getItemId()).get();
@@ -82,7 +64,4 @@ public class ItemsController {
 
         return new ResponseEntity<>(buyOrders, HttpStatus.CREATED);
     }
-
-
-
 }
