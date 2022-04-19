@@ -25,36 +25,14 @@ public class BuyOrderController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
-    private ItemsRepository itemsRepository;
-
-    @GetMapping("/all")
+    @GetMapping("")
     public Iterable<BuyOrders> getAllOrders(){
         return buyOrdersRepository.findAll();
     }
 
-    @GetMapping("/find/{customer_id}")
+    @GetMapping("/{customer_id}")
     public Iterable<BuyOrders> getOrderByCustomer(@PathVariable("customer_id") Long customerid){
         Customer customer = customerRepository.findById(customerid).get();
         return customer.getOrders();
     }
-
-    /*@RequestMapping("/add")
-    public ResponseEntity<?> makeNewOrder(@RequestParam Long customerId, @RequestParam String orderNumber, @RequestParam Long itemId){
-        Customer customer = customerRepository.findById(customerId).get();
-        Items item = itemsRepository.findById(itemId).get();
-        List<Items> i = new ArrayList<>();
-        i.add(item);
-
-        BuyOrders buyOrders = new BuyOrders();
-        buyOrders.setOrderNumber(orderNumber);
-        buyOrders.setCustomer(customer);
-        buyOrders.setItems(i);
-
-        buyOrdersRepository.save(buyOrders);
-
-        return new ResponseEntity<>(buyOrders, HttpStatus.CREATED);
-    }*/
-
-
 }
