@@ -2,9 +2,11 @@ package com.example.backend1assignment.Controllers;
 
 import com.example.backend1assignment.Models.BuyOrders;
 import com.example.backend1assignment.Models.Customer;
+import com.example.backend1assignment.Models.DTO.BuyOrderDTO;
 import com.example.backend1assignment.Models.Items;
 import com.example.backend1assignment.Repos.BuyOrdersRepository;
 import com.example.backend1assignment.Repos.CustomerRepository;
+import com.example.backend1assignment.Repos.ItemsRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +41,9 @@ class BuyOrderControllerTest {
     @MockBean
     private CustomerRepository customerMockRepository;
 
+    @MockBean
+    private ItemsRepository itemMockRepository;
+
     @BeforeEach
     public void init() {
 
@@ -68,17 +73,21 @@ class BuyOrderControllerTest {
 
     @Test
     void getOrderByCustomer() throws Exception {
-        /*Customer c1 = new Customer(2L, "Bob", "Bobs address", "bob@email.com", "secret2");
-        Items i1 = new Items(1L, "Toothbrush", "HY01");
-        List<Items> l1 = new ArrayList<>();
-        l1.add(i1);
-        BuyOrders b5 = new BuyOrders(1L, "3E", c1, l1);
-        when(mockRepository.findById(1L)).thenReturn(Optional.of(b5));
-        when(customerMockRepository.findById(2L)).thenReturn(Optional.of(c1));*/
+        Customer cus = new Customer(7L, "A", "A", "A", "A");
+        Items pres = new Items(7L, "A", "A");
+        List<Items> myIt = new ArrayList<>();
+        myIt.add(pres);
+        BuyOrders bo = new BuyOrders(7L, "33", cus, myIt);
+        List<BuyOrders> myOr = new ArrayList<>();
+        myOr.add(bo);
+        cus.setOrders(myOr);
 
-        mvc.perform(MockMvcRequestBuilders.get("/orders/2").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"id\":1,\"orderNumber\":\"3E\",\"customer\":{\"id\":2,\"name\":\"Bob\",\"address\":\"Bobs address\",\"email\":\"bob@email.com\",\"password\":\"secret2\"},\"items\":{\"id\":1,\"name\":\"Toothbrush\",\"productNumber\":\"HY01\"}}"));
+        when(customerMockRepository.findById(7L)).thenReturn(Optional.of(cus));
+        when(mockRepository.findAll()).thenReturn(Arrays.asList(bo));
+
+        mvc.perform(MockMvcRequestBuilders.get("/orders/7")
+                        .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(content().json(asJsonString(myOr))).andDo(MockMvcResultHandlers.print());
     }
 
     public static String asJsonString(final Object obj) {
