@@ -15,12 +15,12 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public Iterable<Customer> getAllCustomers(){
         return customerRepository.findAll();
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public Customer findCustomerById(@PathVariable("id") Long id){
         return customerRepository.findById(id).get();
     }
