@@ -74,7 +74,7 @@ public class ItemsController {
         myOrder.add(item);
 
         BuyOrders buyOrders = new BuyOrders();
-        //buyOrders.setOrderNumber(orderNumber);
+        buyOrders.setOrderNumber(buyOrderDTO.getOrderNumber());
         buyOrders.setCustomer(customer);
         buyOrders.setItems(myOrder);
 
