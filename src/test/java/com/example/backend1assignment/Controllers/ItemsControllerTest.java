@@ -3,6 +3,7 @@ package com.example.backend1assignment.Controllers;
 import com.example.backend1assignment.Models.Customer;
 import com.example.backend1assignment.Models.DTO.BuyOrderDTO;
 import com.example.backend1assignment.Models.Items;
+import com.example.backend1assignment.Repos.BuyOrdersRepository;
 import com.example.backend1assignment.Repos.CustomerRepository;
 import com.example.backend1assignment.Repos.ItemsRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,9 @@ class ItemsControllerTest {
     private MockMvc mvc;
 
     @MockBean
+    private BuyOrdersRepository BOMockrepository;
+
+    @MockBean
     private ItemsRepository mockRepository;
 
     @MockBean
@@ -39,16 +43,15 @@ class ItemsControllerTest {
 
     @BeforeEach
     public void init() {
+        Customer c1 = new Customer(1L, "Anna", "Anna address", "anna@email.com", "secret1");
 
         Items i1 = new Items(1L, "Toothbrush", "HY01");
         Items i2 = new Items(2L, "Socks", "CL01");
         Items i3 = new Items(3L, "Lightbulb", "EL01");
 
+        when(customerMockRepository.findById(1L)).thenReturn(Optional.of(c1));
         when(mockRepository.findById(2L)).thenReturn(Optional.of(i2));
         when(mockRepository.findAll()).thenReturn(Arrays.asList(i1, i2, i3));
-
-        Customer c1 = new Customer(1L, "Anna", "Anna address", "anna@email.com", "secret1");
-        when(customerMockRepository.findById(1L)).thenReturn(Optional.of(c1));
 
     }
 
