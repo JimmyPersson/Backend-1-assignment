@@ -3,6 +3,7 @@ package com.example.backend1assignment.Controllers;
 import com.example.backend1assignment.Models.BuyOrders;
 import com.example.backend1assignment.Models.Customer;
 import com.example.backend1assignment.Models.DTO.BuyOrderDTO;
+import com.example.backend1assignment.Models.DTO.ItemsDTO;
 import com.example.backend1assignment.Models.Items;
 import com.example.backend1assignment.Repos.BuyOrdersRepository;
 import com.example.backend1assignment.Repos.CustomerRepository;
@@ -39,9 +40,10 @@ public class ItemsController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addItem(@RequestBody Items item){
-        item.setName(item.getName());
-        item.setProductNumber(item.getProductNumber());
+    public ResponseEntity<?> addItem(@RequestBody ItemsDTO itemsDTO){
+        Items item = new Items();
+        item.setName(itemsDTO.getName());
+        item.setProductNumber(itemsDTO.getProductNumber());
         itemsRepository.save(item);
 
         return new ResponseEntity<>(item, HttpStatus.CREATED);
